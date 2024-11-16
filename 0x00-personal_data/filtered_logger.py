@@ -12,6 +12,31 @@ def filter_datum(fields, redaction, message, separator):
     return
     """
     for field in fields:
-        pattern = re.findall(rf"{field}=(.*?);", message)[0]
+        try:
+            pattern = re.findall(rf"{field}=(.*?){separator}", message)[0]
+        except IndexError:
+            pattern = ""
         message = re.sub(pattern, "xxx",  message)
     return (message)
+
+
+import logging
+
+
+class RedactingFormatter(logging.Formatter):
+    """ Redacting Formatter class
+    """
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields):
+        self.fields = fields
+        super(RedactingFormatter, self).__init__(
+                self.format(self.FORMAT))
+
+    def format(self, record: logging.LogRecord) -> str:
+        result = filter_datum(self.fields, RedactingFormatter.REDACTION,
+                              record, RedactingFormatter.SEPARATOR)
+        return result
