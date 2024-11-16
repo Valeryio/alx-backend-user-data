@@ -5,7 +5,8 @@
 
 import base64
 import binascii
-import models.user import User
+from typing import TypeVar
+from models.user import User
 from api.v1.auth.auth import Auth
 
 
