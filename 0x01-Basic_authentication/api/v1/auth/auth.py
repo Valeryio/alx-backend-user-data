@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-from typing import List, TypeVar
-from flask import request
-
 """THis module contains an auth class
 """
+
+from typing import List, TypeVar
+from flask import request
 
 
 class Auth:
