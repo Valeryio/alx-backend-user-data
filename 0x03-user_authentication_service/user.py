@@ -3,6 +3,7 @@
 """THis module contains a database table mapped with sqlAlchemy
 """
 
+from typing import Optional
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import declarative_base
 
@@ -14,9 +15,11 @@ class User(Base):
     """This is the user class mapped to the user
     table in the database
     """
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, nullable=False)
-    hashed_password = Column(String, nullable=False, index=True)
-    session_id = Column(String)
-    reset_token = Column(String)
+    __tablename__: str = "users"
+
+
+    id: int = Column(Integer, primary_key=True, index=True)
+    email: str = Column(String, nullable=False)
+    hashed_password: str = Column(String, nullable=False, index=True)
+    session_id: Optional[str] = Column(String)
+    reset_token: Optional[str] = Column(String)
