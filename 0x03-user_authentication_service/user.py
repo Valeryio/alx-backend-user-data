@@ -16,9 +16,10 @@ class User(Base):
     table in the database
     """
     __tablename__: str = "users"
+    __table_args__ = {'sqlite_autoincrement': True}
 
-    id: int = Column(Integer, primary_key=True)
-    email: str = Column(String(250))
+    id: int = Column(Integer, primary_key=True, autoincrement=True)
+    email: str = Column(String(250), nullable=False)
     hashed_password: str = Column(String(250), nullable=False)
-    session_id: Optional[str] = Column(String(250))
-    reset_token: Optional[str] = Column(String(250))
+    session_id: Optional[str] = Column(String(250), nullable=True)
+    reset_token: Optional[str] = Column(String(250), nullable=True)
